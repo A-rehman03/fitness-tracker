@@ -1,0 +1,43 @@
+/* Header.css */
+
+.header {
+  position: relative;
+  top: 0;
+  width: 97.5%;
+  background-color: #22d1ae;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px; /* Reduced padding */
+  box-shadow: 0 2px 4px rgba(12, 12, 12, 0.1);
+  z-index: 1000;
+}
+
+.header .logo h1 {
+  margin: 0;
+  font-size: 30px; /* Reduced font size */
+  font-weight: bold;
+}
+
+.navigation {
+  display: flex;
+  gap: 20px; /* Reduced gap */
+}
+
+.navigation a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px; /* Reduced font size */
+  padding: 5px 10px; /* Reduced padding */
+  border-radius: 7px; /* Reduced border-radius */
+  transition: background-color 0.3s ease;
+}
+
+.navigation a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navigation a:active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
