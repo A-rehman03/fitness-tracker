@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', authRoutes); // Use authRoutes for /api/auth
+app.use('/api/auth', require('./routes/auth'));
 
 // Error Handling Middleware
 app.use(errorHandler);

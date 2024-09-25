@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './RegisterPage.css'; // Import the CSS file
+import axios from 'axios'; // Import axios for API calls
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -9,20 +12,46 @@ const RegisterPage = () => {
     confirmPassword: '',
   });
 
+  const [error, setError] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+
+    // Basic client-side validation
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      // Call the API to register the user
+      const response = await axios.post('http://localhost:5000/api/auth/register', {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      // Handle successful registration (e.g., redirect to login page)
+      if (response.data.success) {
+        navigate('/login');
+      } else {
+        setError(response.data.message || "Registration failed");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "An error occurred during registration");
+    }
   };
 
   return (
     <div className="register-container">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
+        {error && <div className="error-message">{error}</div>}
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
